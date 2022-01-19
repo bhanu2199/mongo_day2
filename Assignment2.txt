@@ -1,0 +1,14 @@
+Day 2 ASSIGNMENT
+# Created a new database named "population" and created a new collection "zipcodes" ,inserted json data in zipcodes using mongoDB compass.
+# ATLANTA Population
+1.db.zipcodes.find({$and:[{city:"ATLANTA"},{state:"GA"}]})
+2.db.zipcodes.aggregate([{$match:{city:"ATLANTA",state:"GA"}}]).pretty()
+3.db.zipcodes.aggregate([{$group:{_id:{ATLANTA:"$city"},zipcodes:{"$sum":1}}}])
+4.db.zipcodes.aggregate([{$group:{_id:{ATLANTA:"$city"},population:{$sum:"$pop"}}}])
+#population by state
+1.db.zipcodes.aggregate([{$group:{_id:"$state",population:{$sum:"$pop"}}}])
+2.db.zipcodes.aggregate([{ $sort : { "pop" : -1 } }])
+3.db.zipcodes.find({},{"city":1,"pop":1}).sort({"pop":-1}).limit(3)
+#population by state
+1.db.zipcodes.aggregate([{$group:{_id:{state:"$state",city:"$city",population:{$sum:"$pop"}}}}])
+2.db.zipcodes.aggregate([{ $sort : { "pop" : -1 } }])
